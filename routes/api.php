@@ -33,10 +33,14 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::controller(SpotController::class)->group(function () {
+
+        Route::middleware(['checkRole:Employee'])->group(function () {
+            Route::post('spots/new', 'store')->name('api-spots-store');
+            Route::patch('spots/update/{id}', 'update')->name('api-spots-update');
+            Route::delete('spots/{id}', 'destroy')->name('api-spots-destroy');
+        });
+
         Route::get('spots', 'index')->name('api-spots-index');
-        Route::post('spots/new', 'store')->name('api-spots-store');
-        Route::patch('spots/update/{id}', 'update')->name('api-spots-update');
         Route::get('spots/{id}', 'show')->name('api-spots-show');
-        Route::delete('spots/{id}', 'destroy')->name('api-spots-destroy');
     });
 });
