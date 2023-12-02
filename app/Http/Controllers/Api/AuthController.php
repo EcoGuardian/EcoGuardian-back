@@ -22,7 +22,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return new JsonResponse($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->sendError('Validation error!', $validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $user = new User();
@@ -32,21 +32,16 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         $user->role()->associate(Role::where('name', 'Default')->first());
 
-
         $user->save();
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
             $token = $user->createToken(Str::random(40))->plainTextToken;
 
-            return new JsonResponse([
-                "success" => true,
-                "message" => "Register success!",
-                "data" => ["token" => $token]
-            ], 200);
+            return $this->sendResponse(["token" => $token], 'Register success!');
 
         } else {
-            return new JsonResponse('Invalid email or password', Response::HTTP_UNAUTHORIZED);
+            $this->sendError('Invalid email or password','', Response::HTTP_UNAUTHORIZED);
         }
     }
 
@@ -58,7 +53,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return new JsonResponse($validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return  $this->sendError('Validation error!', $validator->errors(), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
@@ -69,18 +64,12 @@ class AuthController extends Controller
 
             $user->update();
 
-            return new JsonResponse([
-                "success" => true,
-                "message" => "Login success!",
-                "data" => ["token" => $token]
-            ], 200);
+            return $this->sendResponse(["token" => $token], 'Login success!');
+
 
         } else {
-            return new JsonResponse([
-                "success" => false,
-                "message" => "Invalid email or password!",
-                "data" => []
-            ], Response::HTTP_UNAUTHORIZED);
+            $this->sendError('','Invalid email or password!', Response::HTTP_UNAUTHORIZED);
+
         }
     }
 }
