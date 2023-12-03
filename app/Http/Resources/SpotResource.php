@@ -22,7 +22,7 @@ class SpotResource extends JsonResource
             "city" => $this->city,
             "location" => $this->location,
             "type" => new TypeResource($this->type),
-            "created_at" => Carbon::parse($this->created_at)->toDateTimeString(),
+            "created_at" => Carbon::parse($this->created_at)->toDateTimeString()
         ];
     }
 }
