@@ -2,11 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SpotResource extends JsonResource
+class ReportResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,14 +16,14 @@ class SpotResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         return [
             "id" => $this->id,
-            "name" => $this->name,
-            "city" => $this->city,
+            "photo_path" => $this->photo_path,
+            "description" => $this->description,
             "location" => $this->location,
-            "type" => new TypeResource($this->type),
-            "created_at" => Carbon::parse($this->created_at)->toDateTimeString()
+            "user" => new UserResource(User::find($this->user_id)),
+            "created_at" => Carbon::parse($this->created_at)->toDateTimeString(),
+            "updated_at" => Carbon::parse($this->updated_at)->toDateTimeString()
         ];
     }
 }

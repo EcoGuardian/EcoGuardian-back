@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SpotController;
 use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\UserController;
@@ -61,4 +62,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('spots/{id}', 'show')->name('api-spots-show');
     });
 
+    Route::controller(ReportController::class)->group(function () {
+
+        Route::middleware(['checkRole:Employee'])->group(function () {
+            Route::get('reports', 'index')->name('api-reports-index');
+        });
+
+        Route::post('reports/new', 'store')->name('api-reports-store');
+        Route::get('reports/{id}', 'show')->name('api-reports-show');
+        Route::patch('reports/update/{id}', 'update')->name('api-reports-update');
+        Route::delete('reports/delete/{id}', 'destroy')->name('api-reports-destroy');
+
+    });
 });
