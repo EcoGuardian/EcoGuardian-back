@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SpotController;
+use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,12 +25,28 @@ Route::controller(AuthController::class)->group(function () {
 
 
 Route::middleware('auth:sanctum')->group(function () {
+
     Route::controller(UserController::class)->group(function () {
         Route::get('users', 'index')->name('api-users-index');
         Route::patch('users/me/update', 'update')->name('api-users-update');
         Route::get('users/me', 'currentUser')->name('api-users-currentUser');
         Route::get('users/{id}', 'show')->name('api-users-show');
         Route::delete('users', 'destroy')->name('api-users-destroy');
+    });
+
+    Route::controller(TypeController::class)->group(function () {
+
+        Route::prefix('spots')->group(function () {
+
+            Route::middleware(['checkRole:Employee'])->group(function () {
+                Route::post('types/new', 'store')->name('api-types-store');
+                Route::patch('types/{id}', 'update')->name('api-types-update');
+                Route::delete('types/{id}', 'destroy')->name('api-types-destroy');
+
+            });
+
+            Route::get('types', 'index')->name('api-types-index');
+        });
     });
 
     Route::controller(SpotController::class)->group(function () {
@@ -43,4 +60,5 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('spots', 'index')->name('api-spots-index');
         Route::get('spots/{id}', 'show')->name('api-spots-show');
     });
+
 });
