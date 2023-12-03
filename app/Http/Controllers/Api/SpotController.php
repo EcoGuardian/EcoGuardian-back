@@ -23,6 +23,11 @@ class SpotController extends Controller
             return $this->sendResponse(SpotResource::collection($spots), 'Spots fetched successfuly!');
         }
 
+        if($request->has('type_id')){
+            $spots = Spot::where('type_id', $request->type_id)->get();
+            return $this->sendResponse(SpotResource::collection($spots), 'Spots fetched successfuly!');
+        }
+
         $spots = Spot::all();
         return $this->sendResponse(SpotResource::collection($spots), 'Spots fetched successfuly!');
     }
