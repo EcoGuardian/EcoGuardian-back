@@ -31,7 +31,7 @@ return new class extends Migration
             'password' => 'password',
         ]);
 
-        $user->role()->associate(Role::where('name', 'SuperAdmin')->first());
+        $user->role()->associate(Role::where('name', 'Employee')->first());
         $user->save();
     }
 

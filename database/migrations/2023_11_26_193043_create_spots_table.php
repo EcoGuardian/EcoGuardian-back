@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('spots', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('location');
-            $table->string('city');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->foreignId('type_id')->constrained('types');
             $table->timestamps();
         });
@@ -25,8 +25,8 @@ return new class extends Migration
         $spot = new Spot();
 
         $spot->name = "Kanta1";
-        $spot->location = "33.43296265331129, -122.08832357078792";
-        $spot->city = "ME-BP";
+        $spot->latitude = "33.43296265331129";
+        $spot->longitude = "-123.43296265331129";
         $spot->type()->associate(Type::all()->first());
 
         $spot->save();

@@ -17,12 +17,6 @@ class SpotController extends Controller
      */
     public function index(Request $request)
     {
-
-        if($request->has('city')){
-            $spots = Spot::where('city', $request->city)->get();
-            return $this->sendResponse(SpotResource::collection($spots), 'Spots fetched successfuly!');
-        }
-
         if($request->has('type_id')){
             $spots = Spot::where('type_id', $request->type_id)->get();
             return $this->sendResponse(SpotResource::collection($spots), 'Spots fetched successfuly!');
@@ -39,8 +33,8 @@ class SpotController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "name" => ['required', 'max:255'],
-            "location" => ['required', 'max:255'],
-            "city" => ['required', 'max:255'],
+            "latitude" => ['required', 'max:255'],
+            "longitude" => ['required', 'max:255'],
             "type_id" => ['required']
         ]);
 
@@ -77,8 +71,8 @@ class SpotController extends Controller
 
         $validator = Validator::make($request->all(), [
             "name" => ['max:255'],
-            "location" => ['max:255'],
-            "city" => ['max:255']
+            "latitude" => ['max:255'],
+            "longitude" => ['max:255'],
         ]);
 
         if ($validator->fails()) {

@@ -19,8 +19,10 @@ class SpotResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "city" => $this->city,
-            "location" => $this->location,
+            "location" => [
+                "lat" => $this->latitude,
+                "long" => $this->longitude
+            ],
             "type" => new TypeResource($this->type),
             "created_at" => Carbon::parse($this->created_at)->toDateTimeString()
         ];
