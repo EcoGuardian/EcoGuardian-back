@@ -68,8 +68,7 @@ class AuthController extends Controller
 
 
         } else {
-            $this->sendError('','Invalid email or password!', Response::HTTP_UNAUTHORIZED);
-
+            return $this->sendError('','Invalid email or password!', Response::HTTP_UNAUTHORIZED);
         }
     }
 }
