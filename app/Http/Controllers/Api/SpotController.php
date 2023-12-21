@@ -32,7 +32,7 @@ class SpotController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "name" => ['required', 'max:255'],
+//            "name" => ['required', 'max:255'],
             "latitude" => ['required', 'max:255'],
             "longitude" => ['required', 'max:255'],
             "type_id" => ['required']
@@ -70,7 +70,7 @@ class SpotController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            "name" => ['max:255'],
+//            "name" => ['max:255'],
             "latitude" => ['max:255'],
             "longitude" => ['max:255'],
         ]);
