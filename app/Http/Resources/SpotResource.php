@@ -18,7 +18,6 @@ class SpotResource extends JsonResource
 
         return [
             "id" => $this->id,
-            "name" => $this->name,
             "location" => [
                 "lat" => $this->latitude,
                 "long" => $this->longitude
