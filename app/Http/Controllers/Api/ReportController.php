@@ -96,11 +96,14 @@ class ReportController extends Controller
             return $this->sendError('', 'Report not found!');
         }
 
-        if($request->user()->id != $report->user_id){
-            return $this->sendError('', 'Forbidden request!', 403);
+        if($request->user()->role->name === 'Employee') {
+
+            $report->update($request->all());
+
+            return $this->sendResponse(new ReportResource($report), 'Updated the report successfully!');
         }
 
-        if($request->user()->role->name !== 'Employee') {
+        if($request->user()->id != $report->user_id){
             return $this->sendError('', 'Forbidden request!', 403);
         }
 
