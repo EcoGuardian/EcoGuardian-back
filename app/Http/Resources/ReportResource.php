@@ -21,6 +21,7 @@ class ReportResource extends JsonResource
             "photo_path" => $this->photo_path,
             "description" => $this->description,
             "location" => $this->location,
+            "status" => $this->status,
             "user" => new UserResource(User::find($this->user_id)),
             "created_at" => Carbon::parse($this->created_at)->toDateTimeString(),
             "updated_at" => Carbon::parse($this->updated_at)->toDateTimeString()

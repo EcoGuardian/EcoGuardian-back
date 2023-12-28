@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('photo_path');
             $table->string('location');
             $table->string('description')->nullable();
-            $table->string('status')->default('Na čekanju');
+            $table->string('status');
             $table->timestamps();
         });
     }

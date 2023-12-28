@@ -33,7 +33,8 @@ class ReportController extends Controller
         $validator = Validator::make($request->all(), [
             'photo_path' => ['required', 'string'],
             'description' => ['string', 'max:500'],
-            'location' => ['required', 'string']
+            'location' => ['required', 'string'],
+            'status' => ['required']
         ]);
 
         if ($validator->fails()) {
@@ -45,6 +46,7 @@ class ReportController extends Controller
         $report->photo_path = $request->photo_path;
         $report->description = $request->description;
         $report->location = $request->location;
+        $report->status = $request->status;
 
         $request->user()->reports()->save($report);
 
@@ -95,6 +97,10 @@ class ReportController extends Controller
         }
 
         if($request->user()->id != $report->user_id){
+            return $this->sendError('', 'Forbidden request!', 403);
+        }
+
+        if($request->user()->role->name !== 'Employee') {
             return $this->sendError('', 'Forbidden request!', 403);
         }
 
