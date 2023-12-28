@@ -21,13 +21,28 @@ return new class extends Migration
         });
 
         Type::create([
-            "name" => "Kanta za reciklazu elektronike",
-            "color" => "00FF00"
+            "name" => "Papir",
+            "color" => "hueGreen"
         ]);
 
         Type::create([
-            "name" => "Kanta za reciklazu stakla",
-            "color" => "0000FF"
+            "name" => "Plastika",
+            "color" => "hueYellow"
+        ]);
+
+        Type::create([
+            "name" => "Staklo",
+            "color" => "hueBlue"
+        ]);
+
+        Type::create([
+            "name" => "Otpad",
+            "color" => "hueCyan"
+        ]);
+
+        Type::create([
+            "name" => "Opasne materije",
+            "color" => "hueRed"
         ]);
     }
 
