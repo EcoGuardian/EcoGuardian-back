@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SpotController;
 use App\Http\Controllers\Api\TypeController;
@@ -74,4 +75,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('reports/delete/{id}', 'destroy')->name('api-reports-destroy');
 
     });
+
+    Route::controller(EventController::class)->group(function () {
+
+        Route::middleware(['checkRole:Employee'])->group(function () {
+            Route::post('events/new', 'store')->name('api-events-store');
+            Route::patch('events/update/{id}', 'update')->name('api-events-update');
+            Route::delete('events/{id}', 'destroy')->name('api-events-destroy');
+        });
+
+        Route::get('events', 'index')->name('api-events-index');
+        Route::get('events/{id}', 'show')->name('api-events-show');
+    });
 });
+
+
