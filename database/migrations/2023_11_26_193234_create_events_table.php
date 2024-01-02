@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('latitude');
             $table->string('longitude');
+            $table->string('datetime');
             $table->string('description')->nullable();
             $table->timestamps();
         });
