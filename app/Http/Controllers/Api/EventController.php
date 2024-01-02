@@ -61,7 +61,7 @@ class EventController extends Controller
             return $this->sendError('', 'Event not found!');
         }
 
-        return $this->sendResponse(new SpotResource($event), 'Event fetched successfuly!');
+        return $this->sendResponse(new EventResource($event), 'Event fetched successfuly!');
     }
 
     /**
