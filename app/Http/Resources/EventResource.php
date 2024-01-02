@@ -22,6 +22,7 @@ class EventResource extends JsonResource
                 "lat" => $this->latitude,
                 "long" => $this->longitude
             ],
+            "datetime" => $this->datetime,
             "likes" => $this->likeCount(),
             "description" => $this->description,
             "created_at" => explode(' ', Carbon::parse($this->created_at)->toDateTimeString())

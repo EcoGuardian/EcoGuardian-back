@@ -37,6 +37,7 @@ class EventController extends Controller
             "description" => ['required', 'max:255'],
             "latitude" => ['required', 'max:255'],
             "longitude" => ['required', 'max:255'],
+            "datetime" => ['required', 'max:255']
         ]);
 
         if ($validator->fails()) {
@@ -79,6 +80,7 @@ class EventController extends Controller
             "description" => ['max:255'],
             "latitude" => ['max:255'],
             "longitude" => ['max:255'],
+            "datetime" => ['required', 'max:255']
         ]);
 
         if ($validator->fails()) {
