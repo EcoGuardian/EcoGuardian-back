@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
 use App\Http\Resources\SpotResource;
 use App\Models\Event;
+use App\Models\UserEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,5 +104,31 @@ class EventController extends Controller
         $event->delete();
 
         return $this->sendResponse('', 'Event deleted successfuly!');
+    }
+
+    public function ooInterestingToggle(Request $request, string $id) {
+
+        $event = Event::find($id);
+
+        if(!$event){
+            return $this->sendError('', 'Event not found!');
+        }
+
+        $user = $request->user();
+        $userEvent = $event->userEvents()->where('user_id', $user->id)->first();
+
+        if ($userEvent) {
+            $userEvent->delete();
+
+            return $this->sendResponse('', 'Unliked!');
+        } else {
+            $userEvent = new UserEvent();
+            $userEvent->user_id = $user->id;
+            $userEvent->event_id = $event->id;
+            $userEvent->save();
+
+            return $this->sendResponse('', 'Liked!');
+        }
+
     }
 }

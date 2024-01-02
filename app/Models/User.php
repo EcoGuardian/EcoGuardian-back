@@ -46,6 +46,12 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+
+    public function userEvents()
+    {
+        return $this->hasMany(UserEvent::class);
+    }
+
     public function reports(){
         return $this->hasMany(Report::class, 'user_id');
     }

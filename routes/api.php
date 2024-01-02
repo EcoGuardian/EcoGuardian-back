@@ -86,6 +86,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('events', 'index')->name('api-events-index');
         Route::get('events/{id}', 'show')->name('api-events-show');
+        Route::post('events/{id}/like', 'ooInterestingToggle')->name('api-ooInterestingToggle-show');
+
     });
 });
 

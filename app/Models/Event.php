@@ -11,8 +11,14 @@ class Event extends Model
 
     protected $fillable = ['title', 'description', 'latitude', 'longitude'];
 
-    public function users()
+
+    public function userEvents()
     {
-        return $this->belongsToMany(User::class, 'user_event');
+        return $this->hasMany(UserEvent::class);
+    }
+
+    public function likeCount()
+    {
+        return $this->userEvents()->count();
     }
 }
