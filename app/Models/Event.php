@@ -9,10 +9,16 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description', 'latitude', 'longitude'];
 
-    public function users()
+
+    public function userEvents()
     {
-        return $this->belongsToMany(User::class, 'user_event');
+        return $this->hasMany(UserEvent::class);
+    }
+
+    public function likeCount()
+    {
+        return $this->userEvents()->count();
     }
 }
