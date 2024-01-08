@@ -66,9 +66,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(ReportController::class)->group(function () {
 
         Route::middleware(['checkRole:Employee'])->group(function () {
-            Route::get('reports', 'index')->name('api-reports-index');
         });
 
+        Route::get('reports', 'index')->name('api-reports-index');
         Route::post('reports/new', 'store')->name('api-reports-store');
         Route::get('reports/{id}', 'show')->name('api-reports-show');
         Route::patch('reports/update/{id}', 'update')->name('api-reports-update');
