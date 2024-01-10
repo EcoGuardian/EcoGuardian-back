@@ -103,6 +103,8 @@ class EventController extends Controller
             return $this->sendError('', 'Event not found!');
         }
 
+        $event->userEvents()->delete();
+
         $event->delete();
 
         return $this->sendResponse('', 'Event deleted successfuly!');
@@ -120,9 +122,10 @@ class EventController extends Controller
         $userEvent = $event->userEvents()->where('user_id', $user->id)->first();
 
         if ($userEvent) {
-            $userEvent->delete();
 
+            $userEvent->delete();
             return $this->sendResponse('', 'Unliked!');
+
         } else {
             $userEvent = new UserEvent();
             $userEvent->user_id = $user->id;
